@@ -1707,26 +1707,37 @@ footer { background: var(--bg-2); border-top: 1px solid rgba(201,169,110,0.1); }
           </div>
         </div>
         <div>
-          <form class="contact-form" onsubmit="handleSubmit(event)">
-            <input type="text" placeholder="Your Name" required>
-            <input type="tel" placeholder="Phone / WhatsApp Number" required>
-            <input type="text" placeholder="Business Name">
-            <select>
-              <option value="" disabled selected>Service Needed</option>
-              <option>Website Development</option>
-              <option>App Development</option>
-              <option>SEO &amp; Visibility</option>
-              <option>Meta / Google Ads</option>
-              <option>Branding &amp; Logo Design</option>
-              <option>Social Media Management</option>
-              <option>Video Editing &amp; Motion</option>
-              <option>WhatsApp / Chatbot Automation</option>
-              <option>Complete Digital Package</option>
-              <option>Other</option>
-            </select>
-            <textarea placeholder="Tell us about your business and what you need..."></textarea>
-            <button type="submit" id="submitBtn">Send Message →</button>
-          </form>
+          <form class="contact-form" id="contactForm">
+
+  <input type="text" name="name" placeholder="Your Name" required>
+
+  <input type="tel" name="phone" placeholder="Phone / WhatsApp Number" required>
+
+  <input type="text" name="business" placeholder="Business Name">
+
+  <select name="service" required>
+    <option value="" disabled selected>Service Needed</option>
+    <option>Website Development</option>
+    <option>App Development</option>
+    <option>SEO & Visibility</option>
+    <option>Meta / Google Ads</option>
+    <option>Branding & Logo Design</option>
+    <option>Social Media Management</option>
+    <option>Video Editing & Motion</option>
+    <option>WhatsApp / Chatbot Automation</option>
+    <option>Complete Digital Package</option>
+    <option>Other</option>
+  </select>
+
+  <textarea name="message"
+    placeholder="Tell us about your business and what you need...">
+  </textarea>
+
+  <button type="submit" id="submitBtn">
+    Send Message →
+  </button>
+
+</form>
         </div>
       </div>
     </div>
@@ -1794,7 +1805,60 @@ footer { background: var(--bg-2); border-top: 1px solid rgba(201,169,110,0.1); }
 
 
 <script>
+const scriptURL = "https://script.google.com/macros/s/AKfycbwrk2ZAGIKKC1_n8o5IXFD9gwC0XIGu15L6R_fDOkgjbHwGEVwJgyDJT08VozrNpUKMxQ/exec";
 
+document
+  .getElementById("contactForm")
+  .addEventListener("submit", async function(e) {
+
+    e.preventDefault();
+
+    const submitBtn = document.getElementById("submitBtn");
+
+    submitBtn.innerText = "Sending...";
+    submitBtn.disabled = true;
+
+    const formData = {
+      name: this.name.value,
+      phone: this.phone.value,
+      business: this.business.value,
+      service: this.service.value,
+      message: this.message.value
+    };
+
+    try {
+
+      const response = await fetch(scriptURL, {
+        method: "POST",
+        body: JSON.stringify(formData)
+      });
+
+      const result = await response.json();
+
+      if(result.result === "success") {
+
+        alert("Message sent successfully!");
+
+        this.reset();
+
+      } else {
+
+        alert("Something went wrong.");
+
+      }
+
+    } catch(error) {
+
+      console.error(error);
+
+      alert("Error submitting form.");
+
+    }
+
+    submitBtn.innerText = "Send Message →";
+    submitBtn.disabled = false;
+
+});
 
 // ===== HERO CANVAS PARTICLES =====
 const canvas = document.getElementById('heroCanvas');
