@@ -1252,26 +1252,35 @@ footer { background: var(--bg-2); border-top: 1px solid rgba(201,169,110,0.1); }
             <div style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;color:var(--dark);">Get a Free Quote in 2 Hours</div>
           </div>
           <div style="background:var(--bg-4);border:1px solid rgba(201,169,110,0.15);border-radius:0 0 1.2rem 1.2rem;padding:1.8rem;">
-            <form class="contact-form" onsubmit="handleSubmit(event)">
-              <input type="text" placeholder="Your Name" required>
-              <input type="tel" placeholder="Phone / WhatsApp Number" required>
-              <input type="text" placeholder="Business Name">
-              <select>
-                <option value="" disabled selected>Service Needed</option>
-                <option>Website Development</option>
-                <option>App Development</option>
-                <option>SEO &amp; Visibility</option>
-                <option>Meta / Google Ads</option>
-                <option>Branding &amp; Logo Design</option>
-                <option>Social Media Management</option>
-                <option>Video Editing &amp; Motion</option>
-                <option>WhatsApp / Chatbot Automation</option>
-                <option>Complete Digital Package</option>
-                <option>Other</option>
-              </select>
-              <textarea placeholder="Tell us about your business and what you need..."></textarea>
-              <button type="submit" id="submitBtn">Send Message →</button>
-            </form>
+            <form class="contact-form" id="contactForm">
+  
+  <input type="text" id="name" placeholder="Your Name" required>
+
+  <input type="tel" id="phone" placeholder="Phone / WhatsApp Number" required>
+
+  <input type="text" id="business" placeholder="Business Name">
+
+  <select id="service">
+    <option value="" disabled selected>Service Needed</option>
+    <option>Website Development</option>
+    <option>App Development</option>
+    <option>SEO & Visibility</option>
+    <option>Meta / Google Ads</option>
+    <option>Branding & Logo Design</option>
+    <option>Social Media Management</option>
+    <option>Video Editing & Motion</option>
+    <option>WhatsApp / Chatbot Automation</option>
+    <option>Complete Digital Package</option>
+    <option>Other</option>
+  </select>
+
+  <textarea id="message" placeholder="Tell us about your business and what you need..."></textarea>
+
+  <button type="submit" id="submitBtn">
+    Send Message →
+  </button>
+
+</form>
             <p style="font-size:0.75rem;color:var(--text-muted);text-align:center;margin-top:1rem;">🔒 Your information is safe with us. We never share your data.</p>
           </div>
         </div>
@@ -1848,6 +1857,45 @@ footer { background: var(--bg-2); border-top: 1px solid rgba(201,169,110,0.1); }
 
 
 <script>
+  document
+  .getElementById("contactForm")
+  .addEventListener("submit", function(e) {
+
+    e.preventDefault();
+
+    const submitBtn = document.getElementById("submitBtn");
+
+    submitBtn.innerText = "Sending...";
+
+    const data = {
+      name: document.getElementById("name").value,
+      phone: document.getElementById("phone").value,
+      business: document.getElementById("business").value,
+      service: document.getElementById("service").value,
+      message: document.getElementById("message").value
+    };
+
+    fetch("https://script.google.com/macros/s/AKfycbxm7BAYs3Mt7Ujc_gr06xOU2_J4IEH8PJtQKlDBTiOdRHdhVNYNdFxKx460XdnVzfwr1Q/exec", {
+      method: "POST",
+      body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+
+      submitBtn.innerText = "Message Sent ✓";
+
+      document.getElementById("contactForm").reset();
+
+    })
+    .catch(error => {
+
+      submitBtn.innerText = "Try Again";
+
+      console.error(error);
+
+    });
+
+});
 
 
 // ===== HERO CANVAS PARTICLES =====
