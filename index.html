@@ -1191,14 +1191,14 @@ footer { background: var(--bg-2); border-top: 1px solid rgba(201,169,110,0.1); }
 @media (max-width: 640px) {
   .success-overlay {
     padding: 1rem;
-    align-items: flex-end;   /* slide up from bottom on mobile */
+    align-items: center;
+    justify-content: center;
   }
   .success-modal {
-    border-radius: 1.5rem 1.5rem 1rem 1rem;
+    border-radius: 1.5rem;
     padding: 2.2rem 1.4rem 1.8rem;
     max-width: 100%;
-    /* slide up from bottom instead of centre-pop */
-    transform: translateY(100%);
+    transform: translateY(40px) scale(0.95);
   }
   .success-overlay.show .success-modal {
     transform: translateY(0) scale(1);
@@ -2139,9 +2139,6 @@ function spawnConfetti() {
 
     const submitBtn = document.getElementById("submitBtn");
 
-    submitBtn.innerText = "Sending...";
-    submitBtn.disabled = true;
-
     const data = {
       name: document.getElementById("name").value,
       phone: document.getElementById("phone").value,
@@ -2150,22 +2147,28 @@ function spawnConfetti() {
       message: document.getElementById("message").value
     };
 
+    // Step 1: Show "Sending..." immediately
+    submitBtn.innerText = "Sending...";
+    submitBtn.disabled = true;
+
+    // Send data to Google Sheets in the background
     fetch("https://script.google.com/macros/s/AKfycbxm7BAYs3Mt7Ujc_gr06xOU2_J4IEH8PJtQKlDBTiOdRHdhVNYNdFxKx460XdnVzfwr1Q/exec", {
       method: "POST",
       body: JSON.stringify(data)
-    })
-    .then(response => response.json())
-    .then(data => {
-      submitBtn.innerText = "Send Message →";
+    }).catch(error => console.error(error));
+
+    // Step 2: After 1s show "Message Sent ✓"
+    setTimeout(() => {
+      submitBtn.innerText = "Message Sent \u2713";
+    }, 1000);
+
+    // Step 3: After 2s show the popup and reset
+    setTimeout(() => {
+      submitBtn.innerText = "Send Message \u2192";
       submitBtn.disabled = false;
       document.getElementById("contactForm").reset();
       showSuccessModal();
-    })
-    .catch(error => {
-      submitBtn.innerText = "Try Again";
-      submitBtn.disabled = false;
-      console.error(error);
-    });
+    }, 2000);
 
 });
 
