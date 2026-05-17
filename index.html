@@ -1021,15 +1021,211 @@ footer { background: var(--bg-2); border-top: 1px solid rgba(201,169,110,0.1); }
 
 }
 
-/* TOAST */
-.toast {
-  position:fixed; bottom:2rem; left:50%; transform:translateX(-50%) translateY(80px);
-  background:var(--green); color:#fff; padding:1rem 2rem; border-radius:3rem;
-  font-weight:600; font-size:0.9rem; z-index:9999;
-  transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
-  pointer-events:none;
+/* SUCCESS MODAL OVERLAY */
+.success-overlay {
+  position: fixed; inset: 0; z-index: 10000;
+  background: rgba(8,8,16,0.75);
+  backdrop-filter: blur(8px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 1.5rem;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.4s ease;
 }
-.toast.show { transform:translateX(-50%) translateY(0); }
+.success-overlay.show {
+  opacity: 1; pointer-events: all;
+}
+
+/* MODAL BOX */
+.success-modal {
+  background: var(--bg-3);
+  border: 1px solid rgba(201,169,110,0.25);
+  border-radius: 2rem;
+  padding: 3rem 2.5rem 2.5rem;
+  max-width: 440px; width: 100%;
+  text-align: center;
+  position: relative; overflow: hidden;
+  transform: translateY(40px) scale(0.95);
+  transition: transform 0.5s cubic-bezier(0.34,1.56,0.64,1);
+  box-shadow: 0 40px 100px rgba(0,0,0,0.5), 0 0 0 1px rgba(201,169,110,0.1);
+}
+.success-overlay.show .success-modal {
+  transform: translateY(0) scale(1);
+}
+
+/* Top gold shimmer line */
+.success-modal::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-light), var(--gold));
+  background-size: 200% 100%;
+  animation: shimmerLine 2.5s linear infinite;
+}
+@keyframes shimmerLine {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Radial glow behind icon */
+.success-modal::after {
+  content: '';
+  position: absolute; top: -60px; left: 50%; transform: translateX(-50%);
+  width: 260px; height: 260px;
+  background: radial-gradient(circle, rgba(201,169,110,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Close button */
+.success-modal-close {
+  position: absolute; top: 1.1rem; right: 1.2rem;
+  width: 32px; height: 32px; border-radius: 50%;
+  background: rgba(201,169,110,0.08); border: 1px solid rgba(201,169,110,0.2);
+  color: var(--gold); font-size: 1rem; line-height: 1;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: all 0.25s;
+  font-family: monospace;
+}
+.success-modal-close:hover { background: rgba(201,169,110,0.18); transform: scale(1.1); }
+
+/* Icon ring */
+.success-icon-wrap {
+  width: 88px; height: 88px; border-radius: 50%;
+  background: rgba(61,154,110,0.12);
+  border: 2px solid rgba(61,154,110,0.35);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 1.8rem;
+  position: relative; z-index: 1;
+  animation: iconPop 0.6s 0.2s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+@keyframes iconPop {
+  from { transform: scale(0); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+.success-icon-wrap svg {
+  width: 44px; height: 44px;
+  stroke: #3d9a6e; stroke-width: 2.5;
+  fill: none; stroke-linecap: round; stroke-linejoin: round;
+}
+/* Animated checkmark */
+.check-path {
+  stroke-dasharray: 60;
+  stroke-dashoffset: 60;
+  animation: drawCheck 0.6s 0.5s cubic-bezier(0.34,1.56,0.64,1) forwards;
+}
+@keyframes drawCheck {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Pulsing ring around icon */
+.success-icon-wrap::after {
+  content: '';
+  position: absolute; inset: -8px;
+  border-radius: 50%;
+  border: 1px solid rgba(61,154,110,0.2);
+  animation: ringPulse 2s ease-in-out infinite 0.8s;
+}
+@keyframes ringPulse {
+  0%,100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.12); opacity: 0; }
+}
+
+.success-label {
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--gold);
+  margin-bottom: 0.7rem; display: block;
+}
+.success-modal h3 {
+  font-size: 1.8rem; color: var(--heading);
+  margin-bottom: 0.7rem; line-height: 1.2;
+}
+.success-modal p {
+  font-size: 0.92rem; color: var(--text-muted);
+  line-height: 1.75; margin-bottom: 2rem;
+}
+
+/* Divider */
+.success-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,169,110,0.2), transparent);
+  margin-bottom: 1.6rem;
+}
+
+/* Info row */
+.success-info-row {
+  display: flex; gap: 0.8rem; justify-content: center;
+  margin-bottom: 2rem; flex-wrap: wrap;
+}
+.success-info-pill {
+  display: flex; align-items: center; gap: 0.45rem;
+  background: rgba(201,169,110,0.07); border: 1px solid rgba(201,169,110,0.15);
+  border-radius: 2rem; padding: 0.45rem 1rem;
+  font-size: 0.78rem; font-weight: 500; color: var(--text-2);
+}
+.success-info-pill span { font-size: 1rem; }
+
+/* CTA button */
+.success-cta {
+  display: block; width: 100%;
+  background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+  color: var(--dark); border: none; border-radius: 3rem;
+  padding: 0.95rem 2rem; font-weight: 700; font-size: 0.95rem;
+  font-family: 'Outfit', sans-serif;
+  cursor: pointer; transition: all 0.35s cubic-bezier(0.34,1.56,0.64,1);
+  box-shadow: 0 8px 28px rgba(201,169,110,0.3);
+}
+.success-cta:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(201,169,110,0.45); }
+
+/* Confetti dots (decorative) */
+.confetti-dot {
+  position: absolute; width: 6px; height: 6px; border-radius: 50%;
+  animation: confettiFall 1.8s ease-out both;
+  pointer-events: none;
+}
+@keyframes confettiFall {
+  0% { transform: translateY(-20px) scale(0); opacity: 1; }
+  80% { opacity: 1; }
+  100% { transform: translateY(80px) scale(1); opacity: 0; }
+}
+
+/* ---- MODAL RESPONSIVE ---- */
+/* Tablet */
+@media (max-width: 640px) {
+  .success-overlay {
+    padding: 1rem;
+    align-items: flex-end;   /* slide up from bottom on mobile */
+  }
+  .success-modal {
+    border-radius: 1.5rem 1.5rem 1rem 1rem;
+    padding: 2.2rem 1.4rem 1.8rem;
+    max-width: 100%;
+    /* slide up from bottom instead of centre-pop */
+    transform: translateY(100%);
+  }
+  .success-overlay.show .success-modal {
+    transform: translateY(0) scale(1);
+  }
+  .success-icon-wrap {
+    width: 72px; height: 72px;
+    margin-bottom: 1.2rem;
+  }
+  .success-icon-wrap svg { width: 36px; height: 36px; }
+  .success-modal h3 { font-size: 1.4rem; margin-bottom: 0.5rem; }
+  .success-modal p  { font-size: 0.86rem; margin-bottom: 1.4rem; }
+  .success-label    { font-size: 0.68rem; margin-bottom: 0.5rem; }
+  .success-info-row { gap: 0.5rem; margin-bottom: 1.4rem; }
+  .success-info-pill { font-size: 0.74rem; padding: 0.38rem 0.8rem; }
+  .success-cta { padding: 0.85rem 1.5rem; font-size: 0.9rem; }
+  .success-divider { margin-bottom: 1.2rem; }
+}
+
+/* Very small phones */
+@media (max-width: 380px) {
+  .success-modal { padding: 1.8rem 1.1rem 1.5rem; }
+  .success-icon-wrap { width: 60px; height: 60px; }
+  .success-icon-wrap svg { width: 30px; height: 30px; }
+  .success-modal h3 { font-size: 1.25rem; }
+  .success-modal p  { font-size: 0.82rem; }
+  .success-info-row { flex-direction: column; align-items: center; }
+}
 </style>
 </head>
 <body>
@@ -1856,7 +2052,85 @@ footer { background: var(--bg-2); border-top: 1px solid rgba(201,169,110,0.1); }
 
 
 
+<!-- SUCCESS MODAL -->
+<div class="success-overlay" id="successOverlay" onclick="handleOverlayClick(event)">
+  <div class="success-modal" id="successModal">
+    <button class="success-modal-close" onclick="closeSuccessModal()" aria-label="Close">✕</button>
+
+    <!-- Animated check icon -->
+    <div class="success-icon-wrap">
+      <svg viewBox="0 0 48 48">
+        <polyline class="check-path" points="10,26 20,36 38,14"/>
+      </svg>
+    </div>
+
+    <span class="success-label">Message Received</span>
+    <h3>Thank You for Reaching Out!</h3>
+    <p>Your enquiry has been successfully submitted. Our team will review your message and get back to you within 24 hours.</p>
+
+    <div class="success-divider"></div>
+
+    <div class="success-info-row">
+      <div class="success-info-pill"><span>⏱</span> Response within 24 hrs</div>
+      <div class="success-info-pill"><span>📩</span> Check your inbox</div>
+    </div>
+
+    <button class="success-cta" onclick="closeSuccessModal()">Got It, Thanks! →</button>
+  </div>
+</div>
+
 <script>
+// ===== SUCCESS MODAL =====
+function showSuccessModal() {
+  const overlay = document.getElementById('successOverlay');
+  overlay.classList.add('show');
+  document.body.style.overflow = 'hidden';
+  // Reset animated checkmark so it replays each time
+  const path = overlay.querySelector('.check-path');
+  path.style.animation = 'none';
+  path.offsetHeight; // reflow
+  path.style.animation = '';
+  // Spawn confetti dots
+  spawnConfetti();
+}
+
+function closeSuccessModal() {
+  const overlay = document.getElementById('successOverlay');
+  overlay.classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById('successOverlay')) closeSuccessModal();
+}
+
+// Close on Escape key
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeSuccessModal();
+});
+
+function spawnConfetti() {
+  const modal = document.getElementById('successModal');
+  const colors = ['#C9A96E','#E8D4A8','#3d9a6e','#4A90D9','#9A7A4A'];
+  // remove old dots
+  modal.querySelectorAll('.confetti-dot').forEach(d => d.remove());
+  for (let i = 0; i < 18; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'confetti-dot';
+    dot.style.cssText = `
+      left: ${15 + Math.random()*70}%;
+      top: ${10 + Math.random()*30}%;
+      background: ${colors[Math.floor(Math.random()*colors.length)]};
+      width: ${4 + Math.random()*6}px;
+      height: ${4 + Math.random()*6}px;
+      animation-delay: ${Math.random()*0.5}s;
+      animation-duration: ${1.2 + Math.random()*0.8}s;
+    `;
+    modal.appendChild(dot);
+    dot.addEventListener('animationend', () => dot.remove());
+  }
+}
+
   document
   .getElementById("contactForm")
   .addEventListener("submit", function(e) {
@@ -1866,6 +2140,7 @@ footer { background: var(--bg-2); border-top: 1px solid rgba(201,169,110,0.1); }
     const submitBtn = document.getElementById("submitBtn");
 
     submitBtn.innerText = "Sending...";
+    submitBtn.disabled = true;
 
     const data = {
       name: document.getElementById("name").value,
@@ -1881,18 +2156,15 @@ footer { background: var(--bg-2); border-top: 1px solid rgba(201,169,110,0.1); }
     })
     .then(response => response.json())
     .then(data => {
-
-      submitBtn.innerText = "Message Sent ✓";
-
+      submitBtn.innerText = "Send Message →";
+      submitBtn.disabled = false;
       document.getElementById("contactForm").reset();
-
+      showSuccessModal();
     })
     .catch(error => {
-
       submitBtn.innerText = "Try Again";
-
+      submitBtn.disabled = false;
       console.error(error);
-
     });
 
 });
@@ -2063,36 +2335,6 @@ document.querySelectorAll('.mobile-nav a').forEach(a=>{
   });
 });
 
-// ===== FORM SUBMIT =====
-function handleSubmit(e){
-  e.preventDefault();
-  const btn = document.getElementById('submitBtn');
-  btn.textContent = 'Sending…';
-  btn.disabled = true;
-  setTimeout(()=>{
-    btn.textContent = 'Sent! ✓';
-    btn.style.background = '#3d9a6e';
-    showToast();
-    setTimeout(()=>{
-      btn.textContent = 'Send Message →';
-      btn.style.background = '';
-      btn.disabled = false;
-      e.target.reset();
-    }, 3500);
-  }, 1200);
-}
-
-function showToast(){
-  const toast = document.createElement('div');
-  toast.className = 'toast';
-  toast.textContent = "Message sent! We'll be in touch soon. ✓";
-  document.body.appendChild(toast);
-  requestAnimationFrame(()=>{ requestAnimationFrame(()=>toast.classList.add('show')); });
-  setTimeout(()=>{
-    toast.classList.remove('show');
-    setTimeout(()=>toast.remove(), 400);
-  }, 4000);
-}
 
 // ===== HERO CARD PARALLAX =====
 document.querySelector('.hero').addEventListener('mousemove', e=>{
