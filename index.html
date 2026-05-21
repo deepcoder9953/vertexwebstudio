@@ -3095,11 +3095,35 @@ function toggleTheme(){
   document.getElementById('toggleThumbMobile').textContent = icon;
   localStorage.setItem('theme', isLight ? 'light' : 'dark');
 }
-if(localStorage.getItem('theme')==='light'){
-  document.body.classList.add('light-mode');
-  document.getElementById('toggleThumb').textContent = '🌙';
-  document.getElementById('toggleThumbMobile').textContent = '🌙';
-}
+
+// Determine initial theme: saved preference → system preference → dark (default)
+(function initTheme(){
+  const saved = localStorage.getItem('theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+  const useLightMode = saved
+    ? saved === 'light'
+    : !prefersDark.matches; // system light → light mode; system dark or unset → dark mode
+
+  if(useLightMode){
+    document.body.classList.add('light-mode');
+    document.getElementById('toggleThumb').textContent = '🌙';
+    document.getElementById('toggleThumbMobile').textContent = '🌙';
+  } else {
+    document.getElementById('toggleThumb').textContent = '☀️';
+    document.getElementById('toggleThumbMobile').textContent = '☀️';
+  }
+
+  // Live-update if user changes their OS theme (only when no manual override saved)
+  prefersDark.addEventListener('change', (e) => {
+    if(!localStorage.getItem('theme')){
+      const nowLight = !e.matches;
+      document.body.classList.toggle('light-mode', nowLight);
+      const icon = nowLight ? '🌙' : '☀️';
+      document.getElementById('toggleThumb').textContent = icon;
+      document.getElementById('toggleThumbMobile').textContent = icon;
+    }
+  });
+})();
 
 // ===== MOBILE MENU =====
 function toggleMenu(){
