@@ -1,0 +1,1564 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<title>VertexSynergy — India's Premier Recruitment Agency</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+
+/* ═══════════════════════════════════════
+   DESIGN TOKENS
+═══════════════════════════════════════ */
+:root {
+  --ease-spring: cubic-bezier(0.34,1.56,0.64,1);
+  --ease-out: cubic-bezier(0.22,1,0.36,1);
+  --tt: background 0.45s var(--ease-out),
+        color 0.45s var(--ease-out),
+        border-color 0.45s var(--ease-out),
+        box-shadow 0.45s var(--ease-out);
+}
+
+[data-theme="dark"] {
+  --bg:        #05050f;
+  --bg2:       #09091a;
+  --bg3:       #0d0d22;
+  --card:      #0e0e20;
+  --card-h:    #131326;
+  --border:    rgba(255,255,255,0.06);
+  --border2:   rgba(255,255,255,0.11);
+  --border3:   rgba(255,255,255,0.18);
+  --a:         #6979f8;
+  --a2:        #9b6bfa;
+  --a3:        #38bdf8;
+  --glow:      rgba(105,121,248,0.5);
+  --glow2:     rgba(105,121,248,0.2);
+  --text:      #e8e8ff;
+  --text2:     #aaaac8;
+  --muted:     #606088;
+  --muted2:    #3a3a58;
+  --green:     #0ef5a5;
+  --gold:      #f9c646;
+  --rose:      #fb7185;
+  --nav-bg:    rgba(5,5,15,0.7);
+  --nav-border:rgba(255,255,255,0.08);
+  --pill-bg:   rgba(105,121,248,0.1);
+  --pill-bdr:  rgba(105,121,248,0.3);
+  --grid-ln:   rgba(255,255,255,0.025);
+  --orb1:      rgba(105,121,248,0.16);
+  --orb2:      rgba(155,107,250,0.1);
+  --orb3:      rgba(56,189,248,0.07);
+  --s-bg:      #0e0e20;
+  --chip-bg:   rgba(255,255,255,0.04);
+  --chip-bdr:  rgba(255,255,255,0.09);
+  --cta-bg:    linear-gradient(145deg,#0f1035 0%,#0a0a24 45%,#120d30 100%);
+  --footer-bg: #09091a;
+  --scam-bg:   rgba(249,198,70,0.06);
+  --scam-c:    rgba(249,198,70,0.8);
+  --tk-bg:     rgba(255,255,255,0.07);
+  --tk-knob:   linear-gradient(135deg,#6979f8,#9b6bfa);
+  --badge-new: rgba(14,245,165,0.1);
+  --badge-n-c: #0ef5a5;
+  --badge-n-b: rgba(14,245,165,0.25);
+}
+
+[data-theme="light"] {
+  --bg:        #fafaff;
+  --bg2:       #f2f2fc;
+  --bg3:       #ebebf7;
+  --card:      #ffffff;
+  --card-h:    #f5f5ff;
+  --border:    rgba(0,0,0,0.07);
+  --border2:   rgba(0,0,0,0.11);
+  --border3:   rgba(0,0,0,0.17);
+  --a:         #4f62f5;
+  --a2:        #7c3aed;
+  --a3:        #0284c7;
+  --glow:      rgba(79,98,245,0.28);
+  --glow2:     rgba(79,98,245,0.12);
+  --text:      #12122e;
+  --text2:     #3a3a60;
+  --muted:     #7070a0;
+  --muted2:    #aeaece;
+  --green:     #059669;
+  --gold:      #d97706;
+  --rose:      #e11d48;
+  --nav-bg:    rgba(250,250,255,0.82);
+  --nav-border:rgba(0,0,0,0.08);
+  --pill-bg:   rgba(79,98,245,0.08);
+  --pill-bdr:  rgba(79,98,245,0.25);
+  --grid-ln:   rgba(0,0,0,0.04);
+  --orb1:      rgba(79,98,245,0.08);
+  --orb2:      rgba(124,58,237,0.06);
+  --orb3:      rgba(2,132,199,0.05);
+  --s-bg:      #ffffff;
+  --chip-bg:   rgba(0,0,0,0.03);
+  --chip-bdr:  rgba(0,0,0,0.09);
+  --cta-bg:    linear-gradient(145deg,#e8ecff 0%,#ede8ff 45%,#e5e0ff 100%);
+  --footer-bg: #f2f2fc;
+  --scam-bg:   rgba(217,119,6,0.06);
+  --scam-c:    #b45309;
+  --tk-bg:     rgba(79,98,245,0.12);
+  --tk-knob:   linear-gradient(135deg,#4f62f5,#7c3aed);
+  --badge-new: rgba(5,150,105,0.08);
+  --badge-n-c: #059669;
+  --badge-n-b: rgba(5,150,105,0.2);
+}
+
+/* ═══ BASE ═══ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{
+  font-family:'Outfit',sans-serif;
+  background:var(--bg); color:var(--text);
+  overflow-x:hidden; min-height:100vh;
+  transition:var(--tt);
+}
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(ellipse 60% 50% at 80% 10%, var(--orb1), transparent),
+    radial-gradient(ellipse 50% 60% at 10% 80%, var(--orb2), transparent),
+    radial-gradient(ellipse 40% 40% at 60% 60%, var(--orb3), transparent);
+  transition:var(--tt);
+}
+body::after{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;opacity:0.018;
+  background:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ═══════════════════════════════════════
+   PREMIUM NAVBAR
+═══════════════════════════════════════ */
+.nav-wrapper{
+  position:fixed;top:0;left:0;right:0;z-index:999;
+  padding:14px 0 0;
+  pointer-events:none;
+}
+nav{
+  pointer-events:all;
+  margin:0 auto; max-width:1280px;
+  padding:0 2rem;
+  height:62px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:var(--nav-bg);
+  backdrop-filter:blur(36px) saturate(200%);
+  -webkit-backdrop-filter:blur(36px) saturate(200%);
+  border:1px solid var(--nav-border);
+  border-radius:18px;
+  box-shadow:0 4px 32px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.06);
+  transition:var(--tt), border-radius 0.3s;
+  position:relative;
+}
+/* Accent glow line on top of nav */
+nav::before{
+  content:'';position:absolute;top:0;left:20%;right:20%;height:1px;
+  background:linear-gradient(90deg, transparent, var(--a), var(--a2), transparent);
+  opacity:0.5; border-radius:999px;
+  transition:opacity 0.3s;
+}
+nav.scrolled{
+  border-radius:14px;
+  box-shadow:0 8px 60px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.06);
+}
+
+/* Logo */
+.logo{
+  display:flex;align-items:center;gap:10px;
+  text-decoration:none; flex-shrink:0;
+}
+.logo-mark{
+  width:34px;height:34px;border-radius:10px;
+  background:linear-gradient(135deg,var(--a),var(--a2));
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 20px var(--glow2);
+  position:relative;overflow:hidden;
+  transition:box-shadow 0.3s;
+}
+.logo-mark::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,0.2),transparent);
+}
+.logo-mark svg{width:18px;height:18px;fill:white;position:relative;z-index:1;}
+.logo:hover .logo-mark{box-shadow:0 0 30px var(--glow);}
+.logo-text{
+  font-family:'Outfit',sans-serif;font-weight:800;font-size:1.18rem;
+  color:var(--text);letter-spacing:-0.4px;
+}
+.logo-text span{color:var(--a);}
+
+/* Nav center links */
+.nav-center{
+  display:flex;align-items:center;gap:0.25rem;
+  background:rgba(255,255,255,0.03);
+  border:1px solid var(--border);
+  border-radius:12px; padding:4px;
+}
+.nav-center a{
+  padding:0.4rem 0.95rem; border-radius:9px;
+  font-size:0.845rem;font-weight:500;color:var(--muted);
+  text-decoration:none;transition:all 0.2s;
+  white-space:nowrap;position:relative;
+}
+.nav-center a:hover{color:var(--text);background:rgba(255,255,255,0.06);}
+.nav-center a.active{color:var(--text);background:rgba(105,121,248,0.12);border:1px solid var(--pill-bdr);}
+
+/* Nav right */
+.nav-right{display:flex;align-items:center;gap:0.6rem;}
+
+/* Theme toggle — premium pill */
+.toggle-wrap{display:flex;align-items:center;gap:0.5rem;}
+.theme-toggle{
+  width:52px;height:28px;border-radius:100px;
+  background:var(--tk-bg);
+  border:1px solid var(--border2);
+  cursor:pointer;position:relative;
+  transition:background 0.35s, border-color 0.35s;
+  flex-shrink:0;
+}
+.theme-toggle:hover{border-color:var(--a);}
+.tk-knob{
+  position:absolute;top:4px;left:4px;
+  width:18px;height:18px;border-radius:50%;
+  background:var(--tk-knob);
+  box-shadow:0 2px 8px rgba(105,121,248,0.5);
+  transition:transform 0.35s var(--ease-spring);
+  display:flex;align-items:center;justify-content:center;
+  font-size:9px;line-height:1;
+}
+[data-theme="light"] .tk-knob{transform:translateX(24px);}
+
+/* Divider */
+.nav-divider{width:1px;height:24px;background:var(--border2);flex-shrink:0;}
+
+/* Buttons */
+.btn{
+  display:inline-flex;align-items:center;gap:0.4rem;
+  padding:0.5rem 1.15rem;border-radius:10px;
+  font-family:'Outfit',sans-serif;font-size:0.84rem;font-weight:600;
+  text-decoration:none;cursor:pointer;border:none;
+  transition:all 0.22s;white-space:nowrap;
+}
+.btn-ghost{
+  background:transparent;color:var(--text2);
+  border:1px solid var(--border2);
+}
+.btn-ghost:hover{border-color:var(--a);color:var(--a);background:rgba(105,121,248,0.07);}
+.btn-nav-primary{
+  background:linear-gradient(135deg,var(--a),var(--a2));
+  color:#fff;
+  box-shadow:0 0 0 1px rgba(105,121,248,0.3), 0 4px 18px var(--glow2);
+  position:relative;overflow:hidden;
+}
+.btn-nav-primary::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,0.15),transparent);
+  pointer-events:none;
+}
+.btn-nav-primary:hover{
+  transform:translateY(-1px);
+  box-shadow:0 0 0 1px rgba(105,121,248,0.4), 0 8px 28px var(--glow);
+  filter:brightness(1.1);
+}
+.btn-lg{padding:0.78rem 1.9rem;font-size:0.95rem;border-radius:13px;}
+
+/* Hamburger */
+.hamburger{
+  display:none;flex-direction:column;gap:5px;
+  cursor:pointer;background:none;border:none;padding:4px;
+}
+.hamburger span{
+  width:20px;height:2px;background:var(--text);border-radius:2px;
+  display:block;transition:all 0.3s;
+}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+/* Mobile nav */
+.mobile-nav{
+  display:none;
+  position:fixed;top:90px;left:1rem;right:1rem;z-index:998;
+  background:var(--nav-bg);backdrop-filter:blur(36px) saturate(200%);
+  border:1px solid var(--nav-border);border-radius:18px;
+  padding:1.5rem;
+  box-shadow:0 20px 60px rgba(0,0,0,0.35);
+  transition:var(--tt);
+}
+.mobile-nav.open{display:block;}
+.mobile-nav ul{list-style:none;display:flex;flex-direction:column;gap:0.25rem;margin-bottom:1.2rem;}
+.mobile-nav li a{
+  display:block;padding:0.65rem 1rem;border-radius:10px;
+  font-size:0.95rem;font-weight:500;color:var(--text2);text-decoration:none;
+  transition:all 0.18s;
+}
+.mobile-nav li a:hover{background:rgba(105,121,248,0.08);color:var(--text);}
+.mobile-nav-actions{display:flex;gap:0.75rem;flex-wrap:wrap;}
+
+/* ═══════════════════════════════════════
+   HERO
+═══════════════════════════════════════ */
+.hero{
+  min-height:100vh;display:flex;align-items:center;
+  padding:130px 5% 90px;
+  position:relative;overflow:hidden;
+}
+/* Animated grid */
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(var(--grid-ln) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-ln) 1px, transparent 1px);
+  background-size:56px 56px;
+  mask-image:radial-gradient(ellipse 90% 90% at 50% 50%, black 10%, transparent 100%);
+  pointer-events:none;
+}
+/* Dot accent */
+.hero-dots{
+  position:absolute;right:5%;top:20%;width:280px;height:280px;
+  pointer-events:none;opacity:0.35;
+  background-image:radial-gradient(circle, var(--a) 1.5px, transparent 1.5px);
+  background-size:24px 24px;
+  mask-image:radial-gradient(ellipse 80% 80% at 60% 40%, black, transparent);
+}
+.hero-content{position:relative;z-index:2;max-width:700px;}
+
+/* Eyebrow badge */
+.hero-badge{
+  display:inline-flex;align-items:center;gap:0.55rem;
+  padding:0.38rem 0.9rem 0.38rem 0.55rem;
+  border-radius:100px;
+  border:1px solid var(--pill-bdr);
+  background:var(--pill-bg);
+  font-size:0.78rem;font-weight:600;color:var(--a);
+  letter-spacing:0.2px;margin-bottom:1.8rem;
+  animation:fadeUp 0.6s 0.05s both;
+}
+.badge-live{
+  display:flex;align-items:center;gap:5px;
+  background:var(--badge-new);border:1px solid var(--badge-n-b);
+  color:var(--badge-n-c);padding:0.2rem 0.6rem;border-radius:100px;
+  font-size:0.72rem;font-weight:700;letter-spacing:0.3px;
+}
+.badge-live-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--green);box-shadow:0 0 8px var(--green);
+  animation:blink 2s infinite;
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+
+.hero h1{
+  font-family:'Instrument Serif',serif;
+  font-size:clamp(2.8rem,5.8vw,4.8rem);
+  font-weight:400;line-height:1.06;letter-spacing:-1px;
+  color:var(--text);margin-bottom:1.5rem;
+  animation:fadeUp 0.6s 0.12s both;
+}
+.hero h1 em{
+  font-style:italic;
+  background:linear-gradient(110deg,var(--a) 0%,var(--a3) 40%,var(--a2) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  background-size:200%;animation:shimmer 6s linear infinite;
+}
+@keyframes shimmer{0%{background-position:0%}100%{background-position:200%}}
+.hero p{
+  font-size:1.07rem;color:var(--text2);line-height:1.82;font-weight:400;
+  max-width:520px;margin-bottom:2.5rem;
+  animation:fadeUp 0.6s 0.2s both;
+}
+.hero-actions{
+  display:flex;gap:0.9rem;flex-wrap:wrap;
+  animation:fadeUp 0.6s 0.28s both;
+}
+.btn-hero-primary{
+  background:linear-gradient(135deg,var(--a),var(--a2));
+  color:#fff;padding:0.85rem 2.1rem;border-radius:14px;
+  font-size:0.97rem;font-weight:700;
+  box-shadow:0 0 0 1px rgba(105,121,248,0.35), 0 8px 32px var(--glow2);
+  position:relative;overflow:hidden;cursor:pointer;
+  font-family:'Outfit',sans-serif;text-decoration:none;
+  display:inline-flex;align-items:center;gap:0.5rem;
+  transition:all 0.25s;
+}
+.btn-hero-primary::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,0.18),transparent);
+}
+.btn-hero-primary:hover{transform:translateY(-2px);box-shadow:0 0 0 1px rgba(105,121,248,0.5),0 12px 40px var(--glow);filter:brightness(1.08);}
+.btn-hero-sec{
+  background:transparent;color:var(--text);
+  border:1px solid var(--border3);
+  padding:0.85rem 2.1rem;border-radius:14px;
+  font-size:0.97rem;font-weight:600;
+  font-family:'Outfit',sans-serif;text-decoration:none;
+  display:inline-flex;align-items:center;gap:0.5rem;
+  transition:all 0.22s;cursor:pointer;
+}
+.btn-hero-sec:hover{border-color:var(--a);color:var(--a);background:rgba(105,121,248,0.06);}
+
+/* Stats row */
+.hero-stats{
+  display:flex;gap:0;margin-top:3.5rem;
+  border:1px solid var(--border2);border-radius:16px;
+  background:rgba(255,255,255,0.02);
+  overflow:hidden;width:fit-content;
+  animation:fadeUp 0.6s 0.36s both;
+  backdrop-filter:blur(12px);
+}
+.hstat{
+  padding:1.1rem 2rem;border-right:1px solid var(--border2);
+  position:relative;
+}
+.hstat:last-child{border-right:none;}
+.hstat-num{
+  font-family:'Outfit',sans-serif;font-size:1.7rem;font-weight:800;
+  color:var(--text);line-height:1;letter-spacing:-1px;
+}
+.hstat-label{font-size:0.73rem;color:var(--muted);margin-top:0.25rem;font-weight:400;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
+
+/* Hero right floating panel */
+.hero-panel{
+  position:absolute;right:5%;top:50%;transform:translateY(-50%);
+  z-index:2;display:flex;flex-direction:column;gap:1rem;
+  animation:fadeUp 0.7s 0.5s both;
+}
+.fp-card{
+  background:var(--card);border:1px solid var(--border2);
+  border-radius:18px;padding:1.3rem 1.5rem;width:230px;
+  box-shadow:0 12px 40px rgba(0,0,0,0.2);
+  transition:var(--tt);position:relative;overflow:hidden;
+}
+.fp-card::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(105,121,248,0.04),transparent);
+  pointer-events:none;
+}
+.fp-card-row{display:flex;align-items:center;gap:0.7rem;margin-bottom:0.5rem;}
+.fp-icon{
+  width:32px;height:32px;border-radius:9px;
+  display:flex;align-items:center;justify-content:center;font-size:0.95rem;
+}
+.fp-icon.green{background:rgba(14,245,165,0.12);}
+.fp-icon.blue{background:rgba(105,121,248,0.12);}
+.fp-icon.gold{background:rgba(249,198,70,0.1);}
+.fp-label{font-size:0.72rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;}
+.fp-val{font-family:'Outfit',sans-serif;font-size:1.5rem;font-weight:800;color:var(--text);line-height:1;}
+.fp-sub{font-size:0.71rem;color:var(--muted);margin-top:0.15rem;}
+/* mini bar in fp-card */
+.fp-bar{height:3px;background:var(--border);border-radius:999px;margin-top:0.8rem;overflow:hidden;}
+.fp-bar-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--a),var(--a2));}
+.fp-card:nth-child(2){margin-left:24px;}
+
+/* Avatar stack in fp-card */
+.fp-avatars{display:flex;align-items:center;margin-top:0.7rem;}
+.fp-avatar{
+  width:26px;height:26px;border-radius:50%;border:2px solid var(--card);
+  font-family:'Outfit',sans-serif;font-size:0.6rem;font-weight:800;color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  margin-left:-8px;
+}
+.fp-avatar:first-child{margin-left:0;}
+.fp-avatar-more{
+  width:26px;height:26px;border-radius:50%;border:2px solid var(--card);
+  background:var(--border2);color:var(--muted);
+  font-size:0.58rem;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  margin-left:-8px;
+}
+.fp-avatars-label{font-size:0.7rem;color:var(--muted);margin-left:8px;}
+
+/* ═══════════════════════════════════════
+   MARQUEE
+═══════════════════════════════════════ */
+.marquee-wrap{
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  background:var(--bg2);overflow:hidden;position:relative;
+  transition:var(--tt);
+}
+.marquee-wrap::before,.marquee-wrap::after{
+  content:'';position:absolute;top:0;bottom:0;width:120px;z-index:2;
+  pointer-events:none;
+}
+.marquee-wrap::before{left:0;background:linear-gradient(to right,var(--bg2),transparent);}
+.marquee-wrap::after{right:0;background:linear-gradient(to left,var(--bg2),transparent);}
+.marquee-track{display:flex;animation:marquee 36s linear infinite;white-space:nowrap;}
+.marquee-track:hover{animation-play-state:paused;}
+.mq-item{
+  display:inline-flex;align-items:center;gap:0.7rem;
+  padding:0.9rem 2.2rem;
+  font-size:0.79rem;font-weight:600;color:var(--muted);
+  letter-spacing:1px;text-transform:uppercase;white-space:nowrap;
+}
+.mq-gem{font-size:0.55rem;color:var(--a);opacity:0.7;}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ═══════════════════════════════════════
+   SEARCH
+═══════════════════════════════════════ */
+.search-section{
+  padding:5rem 5%;background:var(--bg2);
+  border-bottom:1px solid var(--border);
+  transition:var(--tt);
+}
+.search-eyebrow{
+  text-align:center;font-size:0.73rem;font-weight:700;
+  letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--a);margin-bottom:1.4rem;
+}
+.search-wrap{max-width:900px;margin:0 auto;}
+.search-bar{
+  display:flex;
+  background:var(--s-bg);
+  border:1px solid var(--border2);
+  border-radius:18px;overflow:hidden;
+  box-shadow:0 4px 32px rgba(0,0,0,0.2), 0 0 0 1px rgba(105,121,248,0.08);
+  transition:box-shadow 0.3s, border-color 0.3s;
+}
+.search-bar:focus-within{
+  border-color:rgba(105,121,248,0.4);
+  box-shadow:0 4px 32px rgba(0,0,0,0.2), 0 0 0 3px rgba(105,121,248,0.15);
+}
+.search-field{
+  flex:1;display:flex;align-items:center;gap:0.75rem;
+  padding:0 1.4rem;
+}
+.search-field-icon{font-size:1rem;opacity:0.4;}
+.search-field input{
+  flex:1;padding:1.15rem 0;background:transparent;
+  border:none;outline:none;color:var(--text);
+  font-family:'Outfit',sans-serif;font-size:0.94rem;font-weight:400;
+}
+.search-field input::placeholder{color:var(--muted);}
+.search-sep{width:1px;background:var(--border2);margin:0.7rem 0;flex-shrink:0;}
+.search-btn{
+  margin:8px;padding:0 2.2rem;
+  background:linear-gradient(135deg,var(--a),var(--a2));
+  color:#fff;border:none;border-radius:12px;
+  font-family:'Outfit',sans-serif;font-size:0.9rem;font-weight:700;
+  cursor:pointer;transition:all 0.2s;white-space:nowrap;
+  box-shadow:0 4px 18px var(--glow2);
+}
+.search-btn:hover{filter:brightness(1.1);transform:scale(1.02);}
+.search-chips{display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:1.2rem;}
+.chip{
+  padding:0.34rem 0.9rem;border-radius:100px;
+  border:1px solid var(--chip-bdr);
+  font-size:0.77rem;font-weight:500;color:var(--muted);
+  cursor:pointer;transition:all 0.2s;background:var(--chip-bg);
+}
+.chip:hover{border-color:var(--a);color:var(--a);background:rgba(105,121,248,0.07);}
+
+/* ═══════════════════════════════════════
+   SECTIONS
+═══════════════════════════════════════ */
+section{padding:6rem 5%;position:relative;}
+.sec-tag{
+  font-size:0.72rem;font-weight:700;letter-spacing:2.5px;
+  text-transform:uppercase;color:var(--a);
+  margin-bottom:0.8rem;display:block;
+}
+.sec-title{
+  font-family:'Instrument Serif',serif;
+  font-size:clamp(2rem,3.5vw,3rem);
+  font-weight:400;letter-spacing:-0.5px;line-height:1.12;
+  color:var(--text);
+}
+.sec-title em{
+  font-style:italic;
+  background:linear-gradient(110deg,var(--a),var(--a2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+[data-theme="light"] .sec-title em{background:linear-gradient(110deg,#4f62f5,#7c3aed);-webkit-background-clip:text;background-clip:text;}
+.sec-sub{font-size:0.97rem;color:var(--text2);line-height:1.8;max-width:500px;margin-top:1rem;font-weight:400;}
+.sec-header{margin-bottom:3.5rem;}
+.sec-alt{background:var(--bg2);transition:var(--tt);}
+
+/* ═══════════════════════════════════════
+   SERVICES — mosaic grid
+═══════════════════════════════════════ */
+.svc-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--border);
+  border:1px solid var(--border);border-radius:20px;overflow:hidden;
+}
+.svc-card{
+  background:var(--card);padding:2.5rem;
+  cursor:pointer;transition:background 0.25s;
+  position:relative;overflow:hidden;
+  display:flex;flex-direction:column;
+}
+.svc-card::after{
+  content:'';position:absolute;
+  width:200px;height:200px;border-radius:50%;
+  background:radial-gradient(circle, var(--glow2), transparent 70%);
+  top:-80px;right:-80px;opacity:0;transition:opacity 0.35s;
+  pointer-events:none;
+}
+.svc-card:hover{background:var(--card-h);}
+.svc-card:hover::after{opacity:1;}
+.svc-num{
+  font-family:'Outfit',sans-serif;font-size:0.72rem;font-weight:700;
+  color:var(--muted2);letter-spacing:1.5px;margin-bottom:1.2rem;
+}
+.svc-icon-wrap{
+  width:48px;height:48px;border-radius:14px;
+  background:rgba(105,121,248,0.1);border:1px solid rgba(105,121,248,0.2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.4rem;margin-bottom:1.3rem;
+  transition:transform 0.3s var(--ease-spring);
+}
+.svc-card:hover .svc-icon-wrap{transform:scale(1.08);}
+.svc-card h3{
+  font-family:'Outfit',sans-serif;font-size:1.02rem;font-weight:700;
+  color:var(--text);margin-bottom:0.6rem;
+}
+.svc-card p{font-size:0.86rem;color:var(--text2);line-height:1.72;flex:1;}
+.svc-link{
+  display:inline-flex;align-items:center;gap:0.35rem;margin-top:1.3rem;
+  font-size:0.8rem;color:var(--a);font-weight:700;
+  opacity:0;transform:translateY(6px);transition:all 0.25s;
+}
+.svc-card:hover .svc-link{opacity:1;transform:translateY(0);}
+
+/* ═══════════════════════════════════════
+   INDUSTRIES — pill grid
+═══════════════════════════════════════ */
+.ind-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;}
+.ind-card{
+  padding:1.8rem 1.2rem;text-align:center;
+  border:1px solid var(--border);border-radius:16px;background:var(--card);
+  cursor:pointer;transition:all 0.26s;position:relative;overflow:hidden;
+}
+.ind-card::before{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--a),var(--a2));
+  transform:scaleX(0);transform-origin:left;transition:transform 0.3s;
+}
+.ind-card:hover{border-color:rgba(105,121,248,0.4);transform:translateY(-4px);box-shadow:0 12px 36px rgba(105,121,248,0.1);}
+.ind-card:hover::before{transform:scaleX(1);}
+.ind-emoji{font-size:2rem;display:block;margin-bottom:0.8rem;}
+.ind-name{font-family:'Outfit',sans-serif;font-size:0.83rem;font-weight:700;color:var(--text);}
+.ind-count{font-size:0.71rem;color:var(--muted);margin-top:0.3rem;}
+
+/* ═══════════════════════════════════════
+   PROCESS — timeline row
+═══════════════════════════════════════ */
+.process-row{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:0;position:relative;
+}
+.process-row::before{
+  content:'';position:absolute;
+  top:38px;left:calc(12.5% + 1rem);right:calc(12.5% + 1rem);
+  height:1px;background:linear-gradient(90deg,transparent,var(--a),var(--a2),var(--a3),transparent);
+  opacity:0.35;
+}
+.ps{
+  padding:2rem 1.5rem;text-align:center;
+  border:1px solid var(--border);border-radius:18px;background:var(--card);
+  margin:0 0.5rem;transition:all 0.26s;
+  position:relative;overflow:hidden;
+}
+.ps::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--a),var(--a2));
+  transform:scaleX(0);transform-origin:left;transition:transform 0.35s;
+}
+.ps:hover{border-color:rgba(105,121,248,0.4);box-shadow:0 8px 30px rgba(105,121,248,0.1);}
+.ps:hover::before{transform:scaleX(1);}
+.ps-num{
+  width:52px;height:52px;border-radius:16px;margin:0 auto 1.4rem;
+  background:linear-gradient(135deg,rgba(105,121,248,0.15),rgba(155,107,250,0.15));
+  border:1px solid rgba(105,121,248,0.25);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Outfit',sans-serif;font-weight:900;font-size:1rem;color:var(--a);
+  position:relative;z-index:1;
+}
+.ps h3{font-family:'Outfit',sans-serif;font-size:0.98rem;font-weight:700;color:var(--text);margin-bottom:0.6rem;}
+.ps p{font-size:0.84rem;color:var(--text2);line-height:1.72;}
+
+/* ═══════════════════════════════════════
+   JOB CARDS
+═══════════════════════════════════════ */
+.jobs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-bottom:2.5rem;}
+.job-card{
+  background:var(--card);border:1px solid var(--border);border-radius:18px;
+  padding:1.7rem;transition:all 0.28s;cursor:pointer;
+  position:relative;overflow:hidden;
+}
+.job-card::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(105,121,248,0.04),transparent 50%);
+  opacity:0;transition:opacity 0.28s;
+}
+.job-card:hover{border-color:rgba(105,121,248,0.38);transform:translateY(-5px);box-shadow:0 16px 50px rgba(0,0,0,0.2);}
+.job-card:hover::before{opacity:1;}
+.job-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.2rem;}
+.job-co{display:flex;align-items:center;gap:0.8rem;}
+.job-logo{
+  width:44px;height:44px;border-radius:13px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Outfit',sans-serif;font-weight:800;font-size:0.85rem;color:#fff;
+  flex-shrink:0;
+}
+.job-co-name{font-weight:700;font-size:0.84rem;color:var(--text);}
+.job-co-city{font-size:0.72rem;color:var(--muted);margin-top:0.1rem;}
+.job-badge{
+  padding:0.27rem 0.75rem;border-radius:100px;
+  font-size:0.69rem;font-weight:700;letter-spacing:0.3px;flex-shrink:0;
+}
+.badge-ft{background:rgba(105,121,248,0.1);color:var(--a);border:1px solid rgba(105,121,248,0.22);}
+.badge-cn{background:rgba(56,189,248,0.08);color:var(--a3);border:1px solid rgba(56,189,248,0.22);}
+.badge-pm{background:rgba(14,245,165,0.08);color:var(--green);border:1px solid rgba(14,245,165,0.22);}
+[data-theme="light"] .badge-ft{color:#4f62f5;}
+[data-theme="light"] .badge-cn{color:#0284c7;}
+[data-theme="light"] .badge-pm{color:#059669;}
+.job-title{
+  font-family:'Outfit',sans-serif;font-size:1.04rem;font-weight:700;
+  color:var(--text);margin-bottom:0.85rem;
+}
+.job-tags{display:flex;gap:0.6rem;flex-wrap:wrap;margin-bottom:1.2rem;}
+.job-tag{
+  padding:0.22rem 0.7rem;border-radius:7px;
+  background:var(--chip-bg);border:1px solid var(--chip-bdr);
+  font-size:0.73rem;color:var(--text2);font-weight:500;
+}
+.job-footer{display:flex;justify-content:space-between;align-items:center;padding-top:1.1rem;border-top:1px solid var(--border);}
+.job-salary{
+  font-family:'Outfit',sans-serif;font-weight:800;font-size:1.02rem;
+  color:var(--text);
+}
+.btn-apply{
+  padding:0.44rem 1.1rem;border-radius:10px;
+  background:rgba(105,121,248,0.1);color:var(--a);
+  border:1px solid rgba(105,121,248,0.25);
+  font-size:0.79rem;font-weight:700;
+  cursor:pointer;font-family:'Outfit',sans-serif;
+  transition:all 0.2s;
+}
+.btn-apply:hover{background:var(--a);color:#fff;border-color:var(--a);}
+.jobs-cta{text-align:center;}
+.btn-outline-accent{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  padding:0.82rem 2rem;border-radius:13px;
+  border:1px solid rgba(105,121,248,0.35);
+  color:var(--a);background:rgba(105,121,248,0.05);
+  font-family:'Outfit',sans-serif;font-size:0.94rem;font-weight:700;
+  text-decoration:none;cursor:pointer;transition:all 0.22s;
+}
+.btn-outline-accent:hover{background:rgba(105,121,248,0.1);border-color:rgba(105,121,248,0.6);}
+
+/* ═══════════════════════════════════════
+   TESTIMONIALS
+═══════════════════════════════════════ */
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;}
+.testi-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:18px;padding:2.2rem;
+  transition:all 0.26s;position:relative;overflow:hidden;
+}
+.testi-card:hover{border-color:rgba(105,121,248,0.3);box-shadow:0 8px 36px rgba(105,121,248,0.07);}
+.testi-q{
+  font-family:'Instrument Serif',serif;
+  font-size:3.5rem;line-height:0.8;color:var(--a);
+  opacity:0.18;position:absolute;top:1.4rem;right:1.8rem;
+  font-style:italic;
+}
+.stars{color:var(--gold);font-size:0.85rem;letter-spacing:2px;margin-bottom:1.1rem;}
+.testi-text{
+  font-size:0.91rem;color:var(--text2);line-height:1.78;
+  font-style:italic;margin-bottom:1.6rem;
+  font-family:'Instrument Serif',serif;
+}
+.testi-author{display:flex;align-items:center;gap:0.9rem;}
+.tav{
+  width:42px;height:42px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Outfit',sans-serif;font-weight:800;font-size:0.85rem;color:#fff;
+  flex-shrink:0;
+}
+.tav-name{font-family:'Outfit',sans-serif;font-weight:700;font-size:0.9rem;color:var(--text);}
+.tav-role{font-size:0.73rem;color:var(--muted);margin-top:0.1rem;}
+
+/* ═══════════════════════════════════════
+   CTA SECTION
+═══════════════════════════════════════ */
+.cta-wrap{padding:3rem 5% 6rem;}
+.cta-box{
+  background:var(--cta-bg);
+  border:1px solid rgba(105,121,248,0.2);
+  border-radius:26px;padding:5.5rem 4rem;
+  text-align:center;position:relative;overflow:hidden;
+  transition:var(--tt);
+}
+.cta-box::before{
+  content:'';position:absolute;
+  width:900px;height:900px;border-radius:50%;
+  background:radial-gradient(circle,rgba(105,121,248,0.1) 0%,transparent 70%);
+  top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;
+}
+.cta-box::after{
+  content:'';position:absolute;
+  width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle,rgba(155,107,250,0.07) 0%,transparent 70%);
+  top:0%;right:10%;pointer-events:none;
+}
+.cta-box h2{
+  font-family:'Instrument Serif',serif;
+  font-size:clamp(2.2rem,3.5vw,3.2rem);font-weight:400;
+  letter-spacing:-0.5px;position:relative;z-index:1;margin-bottom:1.1rem;
+  color:var(--text);
+}
+.cta-box h2 em{
+  font-style:italic;
+  background:linear-gradient(110deg,var(--a),var(--a2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.cta-box p{
+  color:var(--text2);font-size:1rem;
+  position:relative;z-index:1;margin-bottom:2.8rem;line-height:1.75;
+}
+.cta-btns{
+  display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;
+  position:relative;z-index:1;
+}
+.btn-cta-primary{
+  background:linear-gradient(135deg,var(--a),var(--a2));
+  color:#fff;padding:0.9rem 2.2rem;border-radius:14px;
+  font-family:'Outfit',sans-serif;font-size:0.96rem;font-weight:700;
+  text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem;
+  cursor:pointer;border:none;
+  box-shadow:0 0 0 1px rgba(105,121,248,0.4),0 8px 30px var(--glow2);
+  position:relative;overflow:hidden;transition:all 0.25s;
+}
+.btn-cta-primary::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.16),transparent);}
+.btn-cta-primary:hover{transform:translateY(-2px);box-shadow:0 0 0 1px rgba(105,121,248,0.5),0 12px 40px var(--glow);}
+.btn-cta-sec{
+  background:transparent;color:var(--text);
+  border:1px solid var(--border3);
+  padding:0.9rem 2.2rem;border-radius:14px;
+  font-family:'Outfit',sans-serif;font-size:0.96rem;font-weight:600;
+  text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem;
+  transition:all 0.22s;cursor:pointer;
+}
+.btn-cta-sec:hover{border-color:var(--a);color:var(--a);}
+.trust-row{
+  display:flex;gap:2rem;justify-content:center;
+  margin-top:2.2rem;flex-wrap:wrap;
+  position:relative;z-index:1;
+}
+.trust-item{
+  font-size:0.8rem;color:var(--muted);
+  display:flex;align-items:center;gap:0.45rem;
+}
+.tick{color:var(--green);font-weight:700;}
+
+/* ═══════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════ */
+footer{
+  background:var(--footer-bg);border-top:1px solid var(--border);
+  padding:5.5rem 5% 2.5rem;transition:var(--tt);
+}
+.scam-bar{
+  background:var(--scam-bg);border:1px solid rgba(249,198,70,0.2);
+  border-radius:12px;padding:0.8rem 1.4rem;margin-bottom:3rem;
+  font-size:0.79rem;color:var(--scam-c);
+  display:flex;align-items:center;gap:0.6rem;
+}
+[data-theme="light"] .scam-bar{border-color:rgba(180,83,9,0.2);}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:4rem;margin-bottom:4rem;}
+.fb-logo{
+  font-family:'Outfit',sans-serif;font-size:1.22rem;font-weight:800;
+  color:var(--text);text-decoration:none;
+  display:inline-flex;align-items:center;gap:0.5rem;margin-bottom:1.1rem;
+}
+.fb-logo .logo-mark{width:28px;height:28px;border-radius:8px;font-size:0.7rem;}
+.fb-desc{font-size:0.85rem;color:var(--text2);line-height:1.78;max-width:280px;}
+.socials{display:flex;gap:0.65rem;margin-top:1.5rem;}
+.social{
+  width:36px;height:36px;border-radius:10px;
+  border:1px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:0.75rem;font-weight:700;color:var(--muted);
+  text-decoration:none;transition:all 0.2s;
+}
+.social:hover{border-color:var(--a);color:var(--a);background:rgba(105,121,248,0.07);}
+.fc-title{font-family:'Outfit',sans-serif;font-size:0.84rem;font-weight:700;color:var(--text);margin-bottom:1.2rem;}
+.fc-list{list-style:none;}
+.fc-list li{margin-bottom:0.65rem;}
+.fc-list a{font-size:0.84rem;color:var(--text2);text-decoration:none;transition:color 0.2s;}
+.fc-list a:hover{color:var(--a);}
+.footer-bottom{
+  border-top:1px solid var(--border);padding-top:2rem;
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:1rem;
+}
+.footer-bottom p{font-size:0.77rem;color:var(--muted);}
+.fb-links{display:flex;gap:1.5rem;}
+.fb-links a{font-size:0.77rem;color:var(--muted);text-decoration:none;transition:color 0.2s;}
+.fb-links a:hover{color:var(--text);}
+
+/* ═══════════════════════════════════════
+   REVEAL
+═══════════════════════════════════════ */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.reveal-delay-1{transition-delay:0.1s;}
+.reveal-delay-2{transition-delay:0.2s;}
+.reveal-delay-3{transition-delay:0.3s;}
+
+/* ═══════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════ */
+@media(max-width:1200px){
+  .hero-panel{display:none;}
+}
+@media(max-width:1024px){
+  .svc-grid{grid-template-columns:repeat(2,1fr);}
+  .ind-grid{grid-template-columns:repeat(4,1fr);}
+  .jobs-grid{grid-template-columns:repeat(2,1fr);}
+  .testi-grid{grid-template-columns:repeat(2,1fr);}
+  .process-row{grid-template-columns:repeat(2,1fr);gap:1rem;}
+  .process-row::before{display:none;}
+  .footer-top{grid-template-columns:1fr 1fr;gap:2.5rem;}
+  .nav-center{display:none;}
+}
+@media(max-width:768px){
+  .nav-center{display:none;}
+  .btn-ghost.desktop-only{display:none;}
+  .hamburger{display:flex;}
+  .svc-grid{grid-template-columns:1fr;}
+  .ind-grid{grid-template-columns:repeat(2,1fr);}
+  .jobs-grid{grid-template-columns:1fr;}
+  .testi-grid{grid-template-columns:1fr;}
+  .process-row{grid-template-columns:1fr;}
+  .hero-stats{flex-wrap:wrap;width:100%;}
+  .hstat{flex:1;min-width:120px;}
+  .cta-box{padding:3.5rem 2rem;}
+  .footer-top{grid-template-columns:1fr;gap:2rem;}
+  .search-bar{flex-direction:column;border-radius:16px;}
+  .search-sep{display:none;}
+  .search-field{border-bottom:1px solid var(--border);}
+  .search-btn{margin:8px;padding:1rem;border-radius:10px;}
+  .trust-row{gap:1rem;}
+}
+@media(max-width:480px){
+  .nav-wrapper{padding:10px 0 0;}
+  nav{margin:0 0.75rem;padding:0 1.2rem;height:58px;}
+  .logo-text{font-size:1.05rem;}
+  .hero{padding:105px 4% 70px;}
+  section{padding:4.5rem 4%;}
+  .cta-wrap{padding:2rem 4% 5rem;}
+  footer{padding:4.5rem 4% 2rem;}
+  .cta-box{padding:3rem 1.6rem;}
+  .ind-grid{grid-template-columns:repeat(2,1fr);}
+  .hero-stats{border-radius:14px;}
+  .hstat{padding:0.9rem 1.2rem;}
+  .btn-hero-primary,.btn-hero-sec{padding:0.75rem 1.6rem;font-size:0.9rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<div class="nav-wrapper">
+<nav id="mainNav">
+
+  <!-- Logo -->
+  <a href="#" class="logo">
+    <div class="logo-mark">
+      <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+    </div>
+    <span class="logo-text">Vertex<span>Synergy</span></span>
+  </a>
+
+  <!-- Centre pill nav -->
+  <div class="nav-center">
+    <a href="#jobs">Find a Job</a>
+    <a href="#services">Services</a>
+    <a href="#industries">Industries</a>
+    <a href="#process">Process</a>
+    <a href="#contact">Contact</a>
+  </div>
+
+  <!-- Right cluster -->
+  <div class="nav-right">
+    <!-- Theme toggle -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <div class="tk-knob" id="themeKnob">
+        <span id="themeIcon">🌙</span>
+      </div>
+    </button>
+
+    <div class="nav-divider"></div>
+
+    <a href="#" class="btn btn-ghost desktop-only">For Employers</a>
+    <a href="#" class="btn btn-nav-primary">Submit CV →</a>
+
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+</div>
+
+<!-- Mobile Nav -->
+<div class="mobile-nav" id="mobileNav">
+  <ul>
+    <li><a href="#jobs" onclick="closeNav()">Find a Job</a></li>
+    <li><a href="#services" onclick="closeNav()">Services</a></li>
+    <li><a href="#industries" onclick="closeNav()">Industries</a></li>
+    <li><a href="#process" onclick="closeNav()">Process</a></li>
+    <li><a href="#contact" onclick="closeNav()">Contact</a></li>
+  </ul>
+  <div class="mobile-nav-actions">
+    <a href="#" class="btn btn-ghost">For Employers</a>
+    <a href="#" class="btn btn-nav-primary">Submit CV →</a>
+  </div>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero" id="home">
+  <div class="hero-grid"></div>
+  <div class="hero-dots"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">
+      <div class="badge-live"><div class="badge-live-dot"></div>LIVE</div>
+      India's Most Trusted Recruitment Partner
+    </div>
+
+    <h1>Your Career Deserves<br>a <em>Brilliant</em> Next<br>Chapter</h1>
+
+    <p>We connect exceptional talent with India's leading companies — from your first job to your dream leadership role. Permanent, contract, and CXO hiring done right.</p>
+
+    <div class="hero-actions">
+      <a href="#jobs" class="btn-hero-primary">Explore Open Roles <span>→</span></a>
+      <a href="#services" class="btn-hero-sec">Hire Talent</a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hstat">
+        <div class="hstat-num" data-target="5000">0</div>
+        <div class="hstat-label">Active Openings</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-num" data-target="1200">0</div>
+        <div class="hstat-label">Client Companies</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-num" data-pct="98">0%</div>
+        <div class="hstat-label">Placement Success</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-num" data-fixed="15 Yrs">—</div>
+        <div class="hstat-label">Industry Expertise</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating right panel -->
+  <div class="hero-panel">
+    <div class="fp-card">
+      <div class="fp-card-row">
+        <div class="fp-icon green">📈</div>
+        <div class="fp-label">Placed This Week</div>
+      </div>
+      <div class="fp-val">+847</div>
+      <div class="fp-sub">Candidates successfully placed</div>
+      <div class="fp-bar"><div class="fp-bar-fill" style="width:78%"></div></div>
+      <div class="fp-avatars" style="margin-top:0.8rem">
+        <div class="fp-avatar" style="background:linear-gradient(135deg,#4f6ef7,#7c4ff7)">PR</div>
+        <div class="fp-avatar" style="background:linear-gradient(135deg,#10b981,#059669)">AM</div>
+        <div class="fp-avatar" style="background:linear-gradient(135deg,#f59e0b,#d97706)">SK</div>
+        <div class="fp-avatar-more">+44</div>
+        <span class="fp-avatars-label">this week</span>
+      </div>
+    </div>
+    <div class="fp-card">
+      <div class="fp-card-row">
+        <div class="fp-icon blue">⚡</div>
+        <div class="fp-label">Avg. Time to Place</div>
+      </div>
+      <div class="fp-val">18 Days</div>
+      <div class="fp-sub">Fastest in the industry</div>
+      <div class="fp-bar"><div class="fp-bar-fill" style="width:92%"></div></div>
+    </div>
+    <div class="fp-card">
+      <div class="fp-card-row">
+        <div class="fp-icon gold">🏅</div>
+        <div class="fp-label">New Roles Today</div>
+      </div>
+      <div class="fp-val">+126</div>
+      <div class="fp-sub">Across IT, Finance, Health & more</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ MARQUEE ═══ -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="mq-item">IT & Technology <span class="mq-gem">◆</span></span>
+    <span class="mq-item">Banking & Finance <span class="mq-gem">◆</span></span>
+    <span class="mq-item">Manufacturing <span class="mq-gem">◆</span></span>
+    <span class="mq-item">Healthcare & Pharma <span class="mq-gem">◆</span></span>
+    <span class="mq-item">Executive Search <span class="mq-gem">◆</span></span>
+    <span class="mq-item">Supply Chain <span class="mq-gem">◆</span></span>
+    <span class="mq-item">Sales & Marketing <span class="mq-gem">◆</span></span>
+    <span class="mq-item">Legal & Compliance <span class="mq-gem">◆</span></span>
+    <span class="mq-item">ITES / GCC <span class="mq-gem">◆</span></span>
+    <span class="mq-item">Permanent Hiring <span class="mq-gem">◆</span></span>
+    <span class="mq-item">Contract Staffing <span class="mq-gem">◆</span></span>
+    <span class="mq-item">Payroll Services <span class="mq-gem">◆</span></span>
+    <span class="mq-item">IT & Technology <span class="mq-gem">◆</span></span>
+    <span class="mq-item">Banking & Finance <span class="mq-gem">◆</span></span>
+    <span class="mq-item">Manufacturing <span class="mq-gem">◆</span></span>
+    <span class="mq-item">Healthcare & Pharma <span class="mq-gem">◆</span></span>
+    <span class="mq-item">Executive Search <span class="mq-gem">◆</span></span>
+    <span class="mq-item">Supply Chain <span class="mq-gem">◆</span></span>
+    <span class="mq-item">Sales & Marketing <span class="mq-gem">◆</span></span>
+    <span class="mq-item">Legal & Compliance <span class="mq-gem">◆</span></span>
+    <span class="mq-item">ITES / GCC <span class="mq-gem">◆</span></span>
+    <span class="mq-item">Permanent Hiring <span class="mq-gem">◆</span></span>
+    <span class="mq-item">Contract Staffing <span class="mq-gem">◆</span></span>
+    <span class="mq-item">Payroll Services <span class="mq-gem">◆</span></span>
+  </div>
+</div>
+
+<!-- ═══ SEARCH ═══ -->
+<div class="search-section reveal">
+  <div class="search-eyebrow">Search 5,000+ open positions</div>
+  <div class="search-wrap">
+    <div class="search-bar">
+      <div class="search-field">
+        <span class="search-field-icon">🔍</span>
+        <input type="text" id="jobInput" placeholder="Job title, skill or keyword…"/>
+      </div>
+      <div class="search-sep"></div>
+      <div class="search-field">
+        <span class="search-field-icon">📍</span>
+        <input type="text" placeholder="City or location"/>
+      </div>
+      <button class="search-btn">Find Jobs</button>
+    </div>
+    <div class="search-chips">
+      <span class="chip">Software Engineer</span>
+      <span class="chip">Product Manager</span>
+      <span class="chip">Finance Analyst</span>
+      <span class="chip">HR Executive</span>
+      <span class="chip">Sales Manager</span>
+      <span class="chip">CXO / Leadership</span>
+      <span class="chip">Data Scientist</span>
+      <span class="chip">Operations</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SERVICES ═══ -->
+<section id="services">
+  <div class="sec-header reveal">
+    <span class="sec-tag">What We Do</span>
+    <h2 class="sec-title">End-to-End Talent Solutions<br>for Every <em>Ambition</em></h2>
+    <p class="sec-sub">From your first hire to full workforce transformation — we handle it all under one roof, with precision and care.</p>
+  </div>
+  <div class="svc-grid reveal">
+    <div class="svc-card">
+      <div class="svc-num">01</div>
+      <div class="svc-icon-wrap">🎯</div>
+      <h3>Permanent Recruitment</h3>
+      <p>Long-term hires matched with rigorous vetting. We find people who stay, grow, and contribute.</p>
+      <span class="svc-link">Explore →</span>
+    </div>
+    <div class="svc-card">
+      <div class="svc-num">02</div>
+      <div class="svc-icon-wrap">⚡</div>
+      <h3>Contractual Staffing</h3>
+      <p>Flexible workforce for project-based needs, seasonal peaks, and rapid-scale scenarios.</p>
+      <span class="svc-link">Explore →</span>
+    </div>
+    <div class="svc-card">
+      <div class="svc-num">03</div>
+      <div class="svc-icon-wrap">👑</div>
+      <h3>Executive Search (CXO)</h3>
+      <p>Confidential leadership hiring for C-suite, VP, and senior management across all sectors.</p>
+      <span class="svc-link">Explore →</span>
+    </div>
+    <div class="svc-card">
+      <div class="svc-num">04</div>
+      <div class="svc-icon-wrap">💼</div>
+      <h3>Payroll Management</h3>
+      <p>End-to-end payroll processing, compliance, and HR administration handled seamlessly.</p>
+      <span class="svc-link">Explore →</span>
+    </div>
+    <div class="svc-card">
+      <div class="svc-num">05</div>
+      <div class="svc-icon-wrap">🌐</div>
+      <h3>Managed Services</h3>
+      <p>Outsource your entire talent acquisition function to us and focus on what matters most.</p>
+      <span class="svc-link">Explore →</span>
+    </div>
+    <div class="svc-card">
+      <div class="svc-num">06</div>
+      <div class="svc-icon-wrap">📊</div>
+      <h3>Workforce Advisory</h3>
+      <p>Data-driven HR consulting and strategic workforce planning to build future-ready teams.</p>
+      <span class="svc-link">Explore →</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ INDUSTRIES ═══ -->
+<section class="sec-alt" id="industries">
+  <div class="sec-header reveal">
+    <span class="sec-tag">Industries We Serve</span>
+    <h2 class="sec-title">Deep Expertise Across<br>Every <em>Sector</em></h2>
+    <p class="sec-sub">Sector-specific knowledge and a curated talent network in each domain ensures the best match every time.</p>
+  </div>
+  <div class="ind-grid reveal">
+    <div class="ind-card"><span class="ind-emoji">💻</span><div class="ind-name">IT & Technology</div><div class="ind-count">171 open roles</div></div>
+    <div class="ind-card"><span class="ind-emoji">🏭</span><div class="ind-name">Manufacturing</div><div class="ind-count">98 open roles</div></div>
+    <div class="ind-card"><span class="ind-emoji">🏦</span><div class="ind-name">Banking & Finance</div><div class="ind-count">143 open roles</div></div>
+    <div class="ind-card"><span class="ind-emoji">🏥</span><div class="ind-name">Healthcare & Pharma</div><div class="ind-count">56 open roles</div></div>
+    <div class="ind-card"><span class="ind-emoji">⚙️</span><div class="ind-name">Engineering</div><div class="ind-count">113 open roles</div></div>
+    <div class="ind-card"><span class="ind-emoji">📦</span><div class="ind-name">Supply Chain</div><div class="ind-count">67 open roles</div></div>
+    <div class="ind-card"><span class="ind-emoji">📢</span><div class="ind-name">Sales & Marketing</div><div class="ind-count">136 open roles</div></div>
+    <div class="ind-card"><span class="ind-emoji">⚖️</span><div class="ind-name">Legal & Compliance</div><div class="ind-count">38 open roles</div></div>
+    <div class="ind-card"><span class="ind-emoji">🎓</span><div class="ind-name">Education</div><div class="ind-count">45 open roles</div></div>
+    <div class="ind-card"><span class="ind-emoji">🛒</span><div class="ind-name">Retail & E-commerce</div><div class="ind-count">82 open roles</div></div>
+  </div>
+</section>
+
+<!-- ═══ PROCESS ═══ -->
+<section id="process">
+  <div class="sec-header reveal">
+    <span class="sec-tag">How It Works</span>
+    <h2 class="sec-title">From Introduction to <em>Placed</em> —<br>4 Simple Steps</h2>
+    <p class="sec-sub">A transparent, human-first process that delivers results faster than anyone else in the industry.</p>
+  </div>
+  <div class="process-row reveal">
+    <div class="ps">
+      <div class="ps-num">01</div>
+      <h3>Share Your Needs</h3>
+      <p>Submit your CV or job brief. Tell us your goals, preferences, and what your ideal match looks like.</p>
+    </div>
+    <div class="ps">
+      <div class="ps-num">02</div>
+      <h3>We Match & Screen</h3>
+      <p>Our expert consultants deep-dive into your profile and match you with curated, relevant opportunities.</p>
+    </div>
+    <div class="ps">
+      <div class="ps-num">03</div>
+      <h3>Interview & Select</h3>
+      <p>We coordinate interviews, coach candidates, and ensure a seamless experience all the way through.</p>
+    </div>
+    <div class="ps">
+      <div class="ps-num">04</div>
+      <h3>Placed & Supported</h3>
+      <p>Successful placement with ongoing support for 30 days to ensure lasting success on both sides.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ JOBS ═══ -->
+<section class="sec-alt" id="jobs">
+  <div class="sec-header reveal">
+    <span class="sec-tag">Trending Opportunities</span>
+    <h2 class="sec-title">Featured Job <em>Openings</em></h2>
+    <p class="sec-sub">Hand-picked roles from top companies across India. New positions posted every day.</p>
+  </div>
+  <div class="jobs-grid reveal">
+
+    <div class="job-card">
+      <div class="job-top">
+        <div class="job-co">
+          <div class="job-logo" style="background:linear-gradient(135deg,#4f6ef7,#7c4ff7)">TC</div>
+          <div><div class="job-co-name">TechCorp India</div><div class="job-co-city">Bengaluru</div></div>
+        </div>
+        <span class="job-badge badge-ft">Full-time</span>
+      </div>
+      <div class="job-title">Senior Software Engineer</div>
+      <div class="job-tags"><span class="job-tag">💻 IT & Tech</span><span class="job-tag">📍 Hybrid</span><span class="job-tag">⏱ 5–8 yrs</span></div>
+      <div class="job-footer"><div class="job-salary">₹18–28 LPA</div><button class="btn-apply">Apply Now</button></div>
+    </div>
+
+    <div class="job-card">
+      <div class="job-top">
+        <div class="job-co">
+          <div class="job-logo" style="background:linear-gradient(135deg,#10b981,#059669)">FN</div>
+          <div><div class="job-co-name">FinNova Bank</div><div class="job-co-city">Mumbai</div></div>
+        </div>
+        <span class="job-badge badge-pm">Permanent</span>
+      </div>
+      <div class="job-title">Head of Risk & Compliance</div>
+      <div class="job-tags"><span class="job-tag">🏦 Banking</span><span class="job-tag">📍 On-site</span><span class="job-tag">⏱ 10+ yrs</span></div>
+      <div class="job-footer"><div class="job-salary">₹35–50 LPA</div><button class="btn-apply">Apply Now</button></div>
+    </div>
+
+    <div class="job-card">
+      <div class="job-top">
+        <div class="job-co">
+          <div class="job-logo" style="background:linear-gradient(135deg,#f59e0b,#d97706)">HP</div>
+          <div><div class="job-co-name">HealthPlus</div><div class="job-co-city">Hyderabad</div></div>
+        </div>
+        <span class="job-badge badge-cn">Contract</span>
+      </div>
+      <div class="job-title">Clinical Data Analyst</div>
+      <div class="job-tags"><span class="job-tag">🏥 Healthcare</span><span class="job-tag">📍 Remote</span><span class="job-tag">⏱ 3–5 yrs</span></div>
+      <div class="job-footer"><div class="job-salary">₹10–15 LPA</div><button class="btn-apply">Apply Now</button></div>
+    </div>
+
+    <div class="job-card">
+      <div class="job-top">
+        <div class="job-co">
+          <div class="job-logo" style="background:linear-gradient(135deg,#ef4444,#dc2626)">MX</div>
+          <div><div class="job-co-name">ManufactureX</div><div class="job-co-city">Pune</div></div>
+        </div>
+        <span class="job-badge badge-ft">Full-time</span>
+      </div>
+      <div class="job-title">Plant Operations Manager</div>
+      <div class="job-tags"><span class="job-tag">🏭 Manufacturing</span><span class="job-tag">📍 On-site</span><span class="job-tag">⏱ 8–12 yrs</span></div>
+      <div class="job-footer"><div class="job-salary">₹22–30 LPA</div><button class="btn-apply">Apply Now</button></div>
+    </div>
+
+    <div class="job-card">
+      <div class="job-top">
+        <div class="job-co">
+          <div class="job-logo" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed)">SE</div>
+          <div><div class="job-co-name">SalesEdge</div><div class="job-co-city">Delhi NCR</div></div>
+        </div>
+        <span class="job-badge badge-pm">Permanent</span>
+      </div>
+      <div class="job-title">Regional Sales Director</div>
+      <div class="job-tags"><span class="job-tag">📢 Sales</span><span class="job-tag">📍 Hybrid</span><span class="job-tag">⏱ 6–10 yrs</span></div>
+      <div class="job-footer"><div class="job-salary">₹20–32 LPA</div><button class="btn-apply">Apply Now</button></div>
+    </div>
+
+    <div class="job-card">
+      <div class="job-top">
+        <div class="job-co">
+          <div class="job-logo" style="background:linear-gradient(135deg,#06b6d4,#0891b2)">LX</div>
+          <div><div class="job-co-name">LogiX</div><div class="job-co-city">Chennai</div></div>
+        </div>
+        <span class="job-badge badge-ft">Full-time</span>
+      </div>
+      <div class="job-title">Supply Chain Lead</div>
+      <div class="job-tags"><span class="job-tag">📦 Logistics</span><span class="job-tag">📍 On-site</span><span class="job-tag">⏱ 5–8 yrs</span></div>
+      <div class="job-footer"><div class="job-salary">₹14–20 LPA</div><button class="btn-apply">Apply Now</button></div>
+    </div>
+
+  </div>
+  <div class="jobs-cta reveal">
+    <a href="#" class="btn-outline-accent">View All 5,000+ Openings →</a>
+  </div>
+</section>
+
+<!-- ═══ TESTIMONIALS ═══ -->
+<section>
+  <div class="sec-header reveal">
+    <span class="sec-tag">Success Stories</span>
+    <h2 class="sec-title">What Our Community <em>Says</em></h2>
+    <p class="sec-sub">Thousands of professionals and companies trust VertexSynergy to make the right match.</p>
+  </div>
+  <div class="testi-grid reveal">
+    <div class="testi-card">
+      <div class="testi-q">"</div>
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">VertexSynergy found me the perfect role within 3 weeks. Their team understood exactly what I was looking for — not just the skill match, but the culture fit too.</p>
+      <div class="testi-author">
+        <div class="tav" style="background:linear-gradient(135deg,#4f6ef7,#7c4ff7)">PR</div>
+        <div><div class="tav-name">Priya Rao</div><div class="tav-role">Sr. Software Engineer, Bengaluru</div></div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-q">"</div>
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">As an employer, we've hired over 40 professionals through VertexSynergy in the last year. The quality of candidates and speed of delivery is genuinely unmatched.</p>
+      <div class="testi-author">
+        <div class="tav" style="background:linear-gradient(135deg,#10b981,#059669)">AM</div>
+        <div><div class="tav-name">Arjun Mehta</div><div class="tav-role">HR Director, FinNova Bank</div></div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-q">"</div>
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">I was making a career transition and nervous about it. The consultants gave me honest guidance and helped me land a role I truly love at a company I admire.</p>
+      <div class="testi-author">
+        <div class="tav" style="background:linear-gradient(135deg,#f59e0b,#d97706)">SK</div>
+        <div><div class="tav-name">Shalini Kumar</div><div class="tav-role">Product Manager, Delhi NCR</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA ═══ -->
+<div class="cta-wrap" id="contact">
+  <div class="cta-box reveal">
+    <h2>Ready to Find Your<br><em>Perfect</em> Match?</h2>
+    <p>Whether you're seeking your dream job or building a world-class team —<br>VertexSynergy is your partner every step of the way.</p>
+    <div class="cta-btns">
+      <a href="#" class="btn-cta-primary">📄 Submit Your CV</a>
+      <a href="#" class="btn-cta-sec">Hire Talent →</a>
+    </div>
+    <div class="trust-row">
+      <div class="trust-item"><span class="tick">✓</span> 100% Free for Job Seekers</div>
+      <div class="trust-item"><span class="tick">✓</span> No Hidden Charges</div>
+      <div class="trust-item"><span class="tick">✓</span> Response Within 48 Hours</div>
+      <div class="trust-item"><span class="tick">✓</span> Beware of Fake Offers</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="scam-bar">⚠️ VertexSynergy never charges any fee at any stage of recruitment. Report suspicious calls or emails immediately.</div>
+  <div class="footer-top">
+    <div>
+      <a href="#" class="fb-logo">
+        <div class="logo-mark">
+          <svg viewBox="0 0 24 24" style="width:14px;height:14px;fill:white"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
+        VertexSynergy
+      </a>
+      <p class="fb-desc">India's specialist recruitment partner, connecting the right people with the right opportunities since 2009. Human-forward, data-driven.</p>
+      <div class="socials">
+        <a href="#" class="social">in</a>
+        <a href="#" class="social">tw</a>
+        <a href="#" class="social">fb</a>
+        <a href="#" class="social">yt</a>
+      </div>
+    </div>
+    <div>
+      <div class="fc-title">For Job Seekers</div>
+      <ul class="fc-list">
+        <li><a href="#">Search Jobs</a></li>
+        <li><a href="#">Submit CV</a></li>
+        <li><a href="#">Career Advice</a></li>
+        <li><a href="#">Resume Tips</a></li>
+        <li><a href="#">Interview Tips</a></li>
+        <li><a href="#">Job Profiles</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="fc-title">For Employers</div>
+      <ul class="fc-list">
+        <li><a href="#">Post a Job</a></li>
+        <li><a href="#">Our Services</a></li>
+        <li><a href="#">Executive Search</a></li>
+        <li><a href="#">Payroll Services</a></li>
+        <li><a href="#">Request Callback</a></li>
+        <li><a href="#">Case Studies</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="fc-title">Company</div>
+      <ul class="fc-list">
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Our Offices</a></li>
+        <li><a href="#">Join Our Team</a></li>
+        <li><a href="#">Press Room</a></li>
+        <li><a href="#">Insights & Reports</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 VertexSynergy Recruitment Pvt. Ltd. · All rights reserved.</p>
+    <div class="fb-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms</a>
+      <a href="#">Cookies</a>
+      <a href="#">Sitemap</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ── Theme ── */
+const H = document.documentElement;
+const tBtn = document.getElementById('themeToggle');
+const tIcon = document.getElementById('themeIcon');
+
+function setTheme(t) {
+  H.setAttribute('data-theme', t);
+  tIcon.textContent = t === 'dark' ? '🌙' : '☀️';
+  try { localStorage.setItem('tb2-theme', t); } catch(e){}
+}
+try { const s = localStorage.getItem('tb2-theme'); if(s) setTheme(s); } catch(e){}
+tBtn.addEventListener('click', () => setTheme(H.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
+
+/* ── Nav scroll ── */
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+}, {passive:true});
+
+/* ── Mobile nav ── */
+const hbg = document.getElementById('hamburger');
+const mNav = document.getElementById('mobileNav');
+hbg.addEventListener('click', () => {
+  hbg.classList.toggle('open');
+  mNav.classList.toggle('open');
+});
+function closeNav() {
+  hbg.classList.remove('open');
+  mNav.classList.remove('open');
+}
+
+/* ── Active nav link ── */
+const sections = document.querySelectorAll('section[id], div[id]');
+const navLinks = document.querySelectorAll('.nav-center a');
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting) {
+      navLinks.forEach(a => a.classList.remove('active'));
+      const link = document.querySelector(`.nav-center a[href="#${e.target.id}"]`);
+      if(link) link.classList.add('active');
+    }
+  });
+}, {threshold:0.4});
+sections.forEach(s => io.observe(s));
+
+/* ── Scroll reveal ── */
+const revObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, {threshold:0.07});
+document.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
+
+/* ── Counter ── */
+function runCounter(el) {
+  if(el.dataset.fixed){ el.textContent = el.dataset.fixed; return; }
+  const isP = !!el.dataset.pct;
+  const max = parseInt(isP ? el.dataset.pct : el.dataset.target);
+  let v = 0, steps = 55;
+  const inc = max / steps;
+  const t = setInterval(() => {
+    v = Math.min(v + inc, max);
+    el.textContent = isP ? Math.round(v)+'%' : (max>=1000 ? Math.round(v/1000)+'K+' : Math.round(v));
+    if(v >= max) clearInterval(t);
+  }, 24);
+}
+const cObs = new IntersectionObserver(e => {
+  if(e[0].isIntersecting) {
+    document.querySelectorAll('.hstat-num[data-target],.hstat-num[data-pct],.hstat-num[data-fixed]').forEach(runCounter);
+    cObs.disconnect();
+  }
+},{threshold:0.3});
+const statsEl = document.querySelector('.hero-stats');
+if(statsEl) cObs.observe(statsEl);
+
+/* ── Chip → search ── */
+document.querySelectorAll('.chip').forEach(c => {
+  c.addEventListener('click', function(){
+    document.getElementById('jobInput').value = this.textContent.trim();
+    document.getElementById('jobInput').focus();
+    this.style.transform='scale(0.93)';
+    setTimeout(()=>this.style.transform='',150);
+  });
+});
+</script>
+</body>
+</html>
