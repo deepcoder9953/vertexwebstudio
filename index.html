@@ -3558,8 +3558,32 @@ function goToTalentBridge() {
   document.body.appendChild(flash);
   requestAnimationFrame(() => { flash.style.opacity = '1'; });
 
-  setTimeout(() => { window.location.href = 'talentbridge.html'; }, 500);
+  setTimeout(() => {
+  // Clean up temporary flash/animation states before redirect
+  flash.remove();
+  card.style.transform = '';
+  card.style.boxShadow = '';
+  card.style.transition = '';
+
+  window.location.href = 'talentbridge.html';
+}, 500);
 }
+
+// Clear any leftover transition/flash state when user comes back
+window.addEventListener('pageshow', () => {
+  document.querySelectorAll('.twin-card').forEach(card => {
+    card.style.transform = '';
+    card.style.boxShadow = '';
+    card.style.transition = '';
+  });
+
+  document.querySelectorAll('body > div').forEach(el => {
+    const style = el.getAttribute('style') || '';
+    if (style.includes('z-index:9998') && style.includes('radial-gradient')) {
+      el.remove();
+    }
+  });
+});
 document.querySelector('.twin-card--recruit').addEventListener('keydown', e => {
   if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goToTalentBridge(); }
 });
