@@ -146,11 +146,31 @@ nav.scrolled {
 body.light-mode nav { background: rgba(247,244,238,0.88); }
 body.light-mode nav.scrolled { background: rgba(247,244,238,0.97); }
 
-/* Light mode: service card hover contrast overrides */
+/* ── Service card: resting text contrast ── */
+/* Dark mode: lift muted text so it's readable on dark card bg */
+.service-card p { color: var(--text-2) !important; }
+.service-list li { color: var(--text-2) !important; }
+
+/* Dark mode hover: keep headings white, text warm-light */
+.service-card:hover h3 { color: var(--white); }
+.service-card:hover p { color: var(--light) !important; }
+.service-card:hover .service-list li { color: var(--light) !important; }
+
+/* Light mode resting: strong dark text on light card */
+body.light-mode .service-card h3 { color: var(--heading); }
+body.light-mode .service-card p { color: var(--text) !important; }
+body.light-mode .service-card .service-list li { color: var(--text) !important; }
+
+/* Light mode hover: never go white on light bg */
+body.light-mode .service-card:hover { background: var(--bg-4); }
 body.light-mode .service-card:hover h3 { color: var(--heading); }
-body.light-mode .service-card:hover p { color: var(--text-2); }
-body.light-mode .service-card:hover .service-list li { color: var(--text-2); }
-body.light-mode .service-card:hover { background: var(--bg-3); }
+body.light-mode .service-card:hover p { color: var(--text-2) !important; }
+body.light-mode .service-card:hover .service-list li { color: var(--text-2) !important; }
+
+/* Twin card — no pointer on the card itself, only on click zones */
+.twin-card { cursor: default; }
+.twin-card .twin-card__arrow,
+.twin-card .twin-card__clickzone { cursor: pointer; }
 /* Logo area */
 .nav-logo {
   display: flex; align-items: center; gap: 0.85rem;
@@ -567,16 +587,13 @@ section { padding: 7rem 2.5rem; }
 }
 .service-card:hover .service-icon { transform:scale(1.08); background: rgba(201,169,110,0.16); border-color: rgba(201,169,110,0.38); }
 .service-card h3 { font-family: 'Outfit', sans-serif; font-size: 1.05rem; font-weight: 600; color: var(--heading); margin-bottom: 0.65rem; transition: color 0.22s ease-out; }
-.service-card:hover h3 { color: var(--white); }
-.service-card p { font-size: 0.87rem; color: var(--text-muted); line-height: 1.75; margin-bottom: 1rem; transition: color 0.22s ease-out; }
-.service-card:hover p { color: var(--light-2); }
+.service-card p { font-size: 0.87rem; line-height: 1.75; margin-bottom: 1rem; transition: color 0.22s ease-out; }
 .service-list { list-style: none; }
 .service-list li {
-  font-size: 0.82rem; color: var(--text-muted); padding: 0.28rem 0;
+  font-size: 0.82rem; padding: 0.28rem 0;
   display: flex; align-items: center; gap: 0.5rem;
   transition: color 0.22s ease-out;
 }
-.service-card:hover .service-list li { color: var(--light-2); }
 .service-list li::before { content: '—'; color: var(--gold); font-size: 0.68rem; }
 
 /* DEMOS */
@@ -2488,7 +2505,7 @@ nav.scrolled .nav-logo-img { height: clamp(26px, 4vw, 36px); }
     <div class="twin-services-grid">
 
       <!-- ── DIGITAL SERVICES CARD ── -->
-      <div class="twin-card twin-card--digital reveal" id="digitalCard" onclick="expandDigital(event)" role="button" tabindex="0" aria-expanded="false">
+      <div class="twin-card twin-card--digital reveal" id="digitalCard" aria-expanded="false">
         <div class="twin-card__orb1"></div>
         <div class="twin-card__orb2"></div>
         <div class="twin-card__shimmer"></div>
@@ -2496,26 +2513,26 @@ nav.scrolled .nav-logo-img { height: clamp(26px, 4vw, 36px); }
           <div class="twin-card__icon-wrap">
             <span class="twin-card__icon">⚡</span>
           </div>
-          <div class="twin-card__meta">
+          <div class="twin-card__meta twin-card__clickzone" onclick="expandDigital(event)" role="button" tabindex="0" style="cursor:pointer;">
             <span class="twin-card__tag">Click to Explore</span>
             <h3 class="twin-card__title">Digital Services</h3>
           </div>
-          <div class="twin-card__arrow" id="digitalArrow">
+          <div class="twin-card__arrow" id="digitalArrow" onclick="expandDigital(event)" role="button" tabindex="0" style="cursor:pointer;" aria-label="Explore Digital Services">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
           </div>
         </div>
-        <p class="twin-card__desc">End-to-end digital solutions — from stunning websites to performance marketing that converts visitors into paying customers.</p>
+        <p class="twin-card__desc twin-card__clickzone" onclick="expandDigital(event)" style="cursor:pointer;">End-to-end digital solutions — from stunning websites to performance marketing that converts visitors into paying customers.</p>
         <div class="twin-card__preview-tags">
           <span>Web Dev</span><span>SEO</span><span>Branding</span><span>Ads</span><span>+6 more</span>
         </div>
-        <div class="twin-card__click-hint">
+        <div class="twin-card__click-hint twin-card__clickzone" onclick="expandDigital(event)" style="cursor:pointer;">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
           Tap to see all services
         </div>
       </div>
 
       <!-- ── RECRUITMENT SERVICES CARD ── -->
-      <div class="twin-card twin-card--recruit reveal" style="transition-delay:0.12s" onclick="goToTalentBridge()" role="button" tabindex="0">
+      <div class="twin-card twin-card--recruit reveal" style="transition-delay:0.12s">
         <div class="twin-card__orb1"></div>
         <div class="twin-card__orb2"></div>
         <div class="twin-card__shimmer"></div>
@@ -2523,19 +2540,19 @@ nav.scrolled .nav-logo-img { height: clamp(26px, 4vw, 36px); }
           <div class="twin-card__icon-wrap">
             <span class="twin-card__icon">🤝</span>
           </div>
-          <div class="twin-card__meta">
+          <div class="twin-card__meta twin-card__clickzone" onclick="goToTalentBridge()" role="button" tabindex="0" style="cursor:pointer;">
             <span class="twin-card__tag">Explore TalentBridge</span>
             <h3 class="twin-card__title">Recruitment Services</h3>
           </div>
-          <div class="twin-card__arrow">
+          <div class="twin-card__arrow" onclick="goToTalentBridge()" role="button" tabindex="0" style="cursor:pointer;" aria-label="Go to TalentBridge">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </div>
         </div>
-        <p class="twin-card__desc">Connect with top-tier talent or find your dream role. Our expert recruitment team bridges the gap between ambition and opportunity.</p>
+        <p class="twin-card__desc twin-card__clickzone" onclick="goToTalentBridge()" style="cursor:pointer;">Connect with top-tier talent or find your dream role. Our expert recruitment team bridges the gap between ambition and opportunity.</p>
         <div class="twin-card__preview-tags">
           <span>Talent Sourcing</span><span>HR Consulting</span><span>Executive Search</span>
         </div>
-        <div class="twin-card__click-hint">
+        <div class="twin-card__click-hint twin-card__clickzone" onclick="goToTalentBridge()" style="cursor:pointer;">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 0 1-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           Opens TalentBridge →
         </div>
@@ -3515,21 +3532,25 @@ function closeDigital() {
   }, 60);
 }
 
-// Keyboard support
-document.getElementById('digitalCard').addEventListener('keydown', e => {
-  if (e.key === 'Enter' || e.key === ' ') {
-    e.preventDefault();
-    const rect = document.getElementById('digitalCard').getBoundingClientRect();
-    expandDigital({ stopPropagation: ()=>{}, clientX: rect.left + rect.width/2, clientY: rect.top + rect.height/2 });
-  }
+// Keyboard support — only arrow + clickzone elements trigger open
+document.querySelectorAll('#digitalCard .twin-card__arrow, #digitalCard .twin-card__clickzone').forEach(el => {
+  el.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      const rect = el.getBoundingClientRect();
+      expandDigital({ stopPropagation: ()=>{}, clientX: rect.left + rect.width/2, clientY: rect.top + rect.height/2 });
+    }
+  });
 });
 
 // Touch support for digital card — fire on touchend so tap is intentional
-document.getElementById('digitalCard').addEventListener('touchend', function(e) {
-  e.preventDefault();
-  const touch = e.changedTouches[0];
-  expandDigital({ stopPropagation: ()=>{}, clientX: touch.clientX, clientY: touch.clientY });
-}, { passive: false });
+document.querySelectorAll('#digitalCard .twin-card__arrow, #digitalCard .twin-card__clickzone').forEach(el => {
+  el.addEventListener('touchend', function(e) {
+    e.preventDefault();
+    const touch = e.changedTouches[0];
+    expandDigital({ stopPropagation: ()=>{}, clientX: touch.clientX, clientY: touch.clientY });
+  }, { passive: false });
+});
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeDigital();
 });
