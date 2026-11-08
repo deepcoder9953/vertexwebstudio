@@ -1,0 +1,1 @@
+var VX={"endpoint": "https://formsubmit.co/ajax/infovertexwebstudio@gmail.com", "sheet": "https://script.google.com/macros/s/AKfycbw4iNU2HF9iWD-l5QjL6NOx6PIQgHGQRCl_zcVo2jHoKwiZRN4ylHhiheUWItvygMyegA/exec", "email": "infovertexwebstudio@gmail.com", "wa": "919953752331"};
